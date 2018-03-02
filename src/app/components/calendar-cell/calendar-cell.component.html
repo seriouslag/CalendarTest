@@ -1,8 +1,6 @@
 <mat-card [style.backgroundColor]="color">
   <mat-card-title>{{(day.num != 0 ? day.num : "")}}</mat-card-title>
-  <mat-card-content>
     <div *ngFor="let holiday of day.holidays">
       <button mat-button (click)="openHolidayDialog(holiday)" matTooltip="View Details">{{holiday.name}}</button>
     </div>
-  </mat-card-content>
 </mat-card>
