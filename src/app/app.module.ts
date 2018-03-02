@@ -11,10 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { routing } from './app.routing';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
-import {HomePageComponent} from "./pages/home-page/home-page.component";
-import {NotFoundPageComponent} from "./pages/not-found-page/not-found-page.component";
-import {HttpClientModule} from "@angular/common/http";
-import {FileService} from "./services/file.service";
+import {HomePageComponent} from './pages/home-page/home-page.component';
+import {NotFoundPageComponent} from './pages/not-found-page/not-found-page.component';
+import {HttpClientModule} from '@angular/common/http';
+import {FileService} from './services/file.service';
 import { HolidayDialogComponent } from './components/dialogs/holiday-dialog/holiday-dialog.component';
 
 @NgModule({
