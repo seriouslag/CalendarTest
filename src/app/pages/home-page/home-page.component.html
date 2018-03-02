@@ -1,19 +1,19 @@
-<button mat-button (click)="openCalPickerDialog()" matTooltip="Click to open dialog">Enter Parameters</button>
+<button mat-raised-button color="primary" (click)="openCalPickerDialog()" matTooltip="Click to open dialog">Enter Parameters</button>
 
-<mat-card *ngIf="dates$.getValue()">
-  <div>
+  <div *ngIf="dates$.getValue() && !loading$.getValue()">
     <div  *ngFor="let year of dates$.getValue()">
-      <div fxFlexFill>
-
-        <div *ngFor="let month of year.months">
-          <div fxFlexFill class="calHead">{{month.name}} {{year.num}}</div>
-          <div fxLayout="row" class="seventh center"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
-          <div fxLayout="row" class="wrap">
-            <app-calendar-cell *ngFor="let day of month.days" [day]="day"></app-calendar-cell>
-          </div>
+      <div fxFlexFill fxLayoutGap="15px" class="addMargin">
+        <div *ngFor="let month of year.months" fxLayoutGap="10px">
+          <mat-card>
+            <mat-card-title fxFlexFill class="calHead">{{month.name}} {{year.num}}</mat-card-title>
+            <div fxLayout="row" class="seventh center"><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span></div>
+            <div fxLayout="row" class="wrap">
+              <app-calendar-cell *ngFor="let day of month.days" [day]="day"></app-calendar-cell>
+            </div>
+          </mat-card>
         </div>
       </div>
     </div>
   </div>
-  <mat-spinner *ngIf="dates$.getValue() === null && (loading$ | async)"></mat-spinner>
-</mat-card>
+  <mat-spinner *ngIf="loading$.getValue()"></mat-spinner>
+
