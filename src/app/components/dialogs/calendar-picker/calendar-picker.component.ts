@@ -16,9 +16,17 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
 
   calForm = new FormGroup({
     startDate: new FormControl((this.calData ? this.calData.startDate : null), [Validators.required]),
-    numberOfDays: new FormControl((this.calData ? this.calData.numberOfDays : null), [Validators.required]),
-    countryCode: new FormControl((this.calData ? this.calData.countryCode : null), [Validators.required]),
+    numberOfDays: new FormControl((this.calData ? this.calData.numberOfDays : null), [Validators.compose([Validators.required, CalendarPickerComponent.nonZero])]),
+    countryCode: new FormControl((this.calData ? this.calData.countryCode : null), []),
   });
+
+  static nonZero(control:any):{ [key: string]: any; } {
+    if (Number(control.value) < 0) {
+      return {nonZero: true};
+    } else {
+      return null;
+    }
+  }
 
   constructor(public dialogRef: MatDialogRef<CalendarPickerComponent>, @Inject(MAT_DIALOG_DATA) private dialogData: any) { }
 
