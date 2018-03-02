@@ -70,13 +70,14 @@ export class HomePageComponent implements OnInit {
     });
     this.calPickerDialogRef.afterClosed().subscribe(cData => {
       this.calData = cData;
-      this.loading$.next(true);
-      this.getMonthYearsFromCalData();
+      if (this.calData != null) {
+        this.getMonthYearsFromCalData();
+      }
     });
   }
 
   private getMonthYearsFromCalData() {
-
+    this.loading$.next(true);
     if (this.calData) {
       // Set init moment
       const startDate: Moment = (this.calData.startDate);
