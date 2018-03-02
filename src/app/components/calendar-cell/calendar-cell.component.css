@@ -1,3 +1,15 @@
 mat-card {
-  height: 50px;
+  height: 100px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.mat-button {
+  margin: 0;
+  padding: 0;
+  min-width: 100%;
+}
+
+mat-card-title {
+  padding: 5px;
 }

@@ -16,3 +16,14 @@ app-calendar-cell {
 .calHead {
   font-size: 32px;
 }
+
+mat-card {
+}
+
+.addMargin {
+  margin: 5px !important;
+}
+
+.addMargin div {
+  margin: 5px !important;
+}
