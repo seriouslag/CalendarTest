@@ -105,11 +105,13 @@ export class HomePageComponent implements OnInit {
                (m <= 12)  && (y < endYear ? true : (y === endYear && m <= endMonth));
                m++) {
             // days
+            console.log('months');
             const days: Day[] = [];
             for (let d = ((y === startYear && m === startMonth) ? startDay : 1);
                  ((d <= moment(y + '-' + (m < 10 ? '0' + m : m), 'YYYY-MM').daysInMonth()) &&
-                   !(y === endYear && m === endMonth && d === endDay));
-                 d++) {
+                   (y === endYear ? m === endMonth ? d !== endDay : true : true));
+            d++) {
+              console.log('days');
               const day = moment(y + '-' + (m < 10 ? '0' + m : m) + '-' + (d < 10 ? '0' + d : d), 'YYYY-MM-DD').clone();
 
               if (d === 1 || (startYear === y && startMonth === m && startDay === d)) {
@@ -143,11 +145,16 @@ export class HomePageComponent implements OnInit {
               }
             }
 
-            months.push(<Month>{days: days, name: this.numToMonth(m), startDay: days[0]});
+            if (days.length > 0) {
+              months.push(<Month>{days: days, name: this.numToMonth(m), startDay: days[0]});
+            }
+            console.log('here');
           }
 
-          years.push(<Year>{months: months, num: y});
-          y++;
+          console.log('adding to years', months);
+          if (months.length > 0) {
+            years.push(<Year>{months: months, num: y});
+          }
         }
       } else {
         const date = moment('' + startYear + '-' + (startMonth < 10 ? '0' + startMonth : startMonth) + '-' + (startDay < 10 ? '0' + startDay : startDay), 'YYYY-MM-DD').clone();
@@ -159,7 +166,6 @@ export class HomePageComponent implements OnInit {
             holidays: null
           });
         }
-
         days.push(<Day>{num: startDay, date: date, holidays: this.fileService.getHoliday(date.format('YYYY-MM-DD'))});
         if ((startDay === date.daysInMonth() && date.weekday() < 6) ||
           (startDay === (endDay - 1) && startMonth === endMonth && startYear === endYear && date.weekday() < 6)) {
@@ -171,7 +177,6 @@ export class HomePageComponent implements OnInit {
             });
           }
         }
-
         const months: Month[] = [<Month>{days: days, name: this.numToMonth(startMonth)}];
         years.push(<Year>{months: months, num: startYear });
       }
