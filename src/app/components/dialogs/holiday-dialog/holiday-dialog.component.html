@@ -1,0 +1,10 @@
+<mat-card *ngIf="holiday">
+  <mat-card-title>{{holiday.name}}</mat-card-title>
+  <mat-card-subtitle>{{holiday.date}}</mat-card-subtitle>
+
+  <mat-card-content>{{holiday.description}}</mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button (click)="close()" matTooltip="Go Back">Back</button>
+  </mat-card-actions>
+</mat-card>

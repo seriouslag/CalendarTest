@@ -1,0 +1,18 @@
+app-calendar-cell {
+  width: calc(100% * (1/7));
+}
+
+.center {
+  text-align: center;
+}
+
+.seventh span{
+  width: calc(100% * (1/7));
+}
+.wrap {
+  flex-wrap:wrap;
+}
+
+.calHead {
+  font-size: 32px;
+}
