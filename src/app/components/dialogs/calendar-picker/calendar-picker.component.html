@@ -1,10 +1,13 @@
 <mat-card>
   <mat-card-title>Enter Parameters</mat-card-title>
-  <form [formGroup]="calForm" fxLayout="column">
+  <form [formGroup]="calForm" fxLayout="column" fxLayoutGap="10px">
     <mat-form-field>
       <input matInput [matDatepicker]="startDate" placeholder="Choose a date" formControlName="startDate">
       <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
       <mat-datepicker #startDate></mat-datepicker>
+
+      <mat-hint *ngIf="!calForm.controls['startDate'].hasError('required') && calForm.controls['startDate'].invalid && (calForm.controls['startDate'].dirty || calForm.controls['startDate'].touched)">This date is invalid.</mat-hint>
+      <mat-hint *ngIf="calForm.controls['startDate'].hasError('required') && (calForm.controls['startDate'].dirty || calForm.controls['startDate'].touched)">A date is required.</mat-hint>
     </mat-form-field>
 
     <mat-form-field>
@@ -21,6 +24,6 @@
       </mat-option>
     </mat-autocomplete>
 
-    <button mat-button type="submit" (click)="close()" [disabled]="calForm.invalid">Enter</button>
+    <button mat-raised-button color="primary" type="submit" (click)="close()" [disabled]="calForm.invalid">Enter</button>
   </form>
 </mat-card>

@@ -1,7 +1,7 @@
 import {Component, Inject, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CountryCode} from "../../../interface/countryCode";
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CountryCode} from '../../../interface/countryCode';
 
 @Component({
   selector: 'app-calendar-picker',
@@ -16,11 +16,13 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
 
   calForm = new FormGroup({
     startDate: new FormControl((this.calData ? this.calData.startDate : null), [Validators.required]),
-    numberOfDays: new FormControl((this.calData ? this.calData.numberOfDays : null), [Validators.compose([Validators.required, CalendarPickerComponent.nonZero])]),
+    numberOfDays: new FormControl((this.calData ? this.calData.numberOfDays : null), [
+      Validators.compose([Validators.required, CalendarPickerComponent.nonZero])
+    ]),
     countryCode: new FormControl((this.calData ? this.calData.countryCode : null), []),
   });
 
-  static nonZero(control:any):{ [key: string]: any; } {
+  static nonZero(control: any): { [key: string]: any; } {
     if (Number(control.value) < 0) {
       return {nonZero: true};
     } else {
@@ -32,7 +34,7 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
 
   public ngOnInit(): void {
 
-    if(this.dialogData) {
+    if (this.dialogData) {
       this.calData = this.dialogData;
       this.setData();
     }
