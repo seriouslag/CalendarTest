@@ -101,7 +101,7 @@ export class HomePageComponent implements OnInit {
 
           // months
           let months: Month[] = [];
-          for (let m = (y === startYear ? startMonth : 1); ((m <= 12) && !(y == endYear && m == endMonth)); m++) {
+          for (let m = (y === startYear ? startMonth : 1); ((m <= 12) && (y <= endYear && m <= endMonth) && !(y >= endYear && m > endMonth)); m++) {
             // days
             let days: Day[] = [];
             for (let d = ((y === startYear && m === startMonth) ? startDay : 1); ((d <= moment("2012-" + (m < 10 ? "0" + m : m), "YYYY-MM").daysInMonth()) && !(y === endYear && m === endMonth && d === endDay)); d++) {
@@ -146,7 +146,26 @@ export class HomePageComponent implements OnInit {
         }
       } else {
         let date = moment('' + startYear + "-" + (startMonth < 10 ? "0" + startMonth : startMonth) + '-' +(startDay < 10 ? "0" + startDay : startDay), "YYYY-MM-DD").clone();
-        let days: Day[] = [<Day>{num: startDay, date: date, holidays: this.fileService.getHoliday(date.format("YYYY-MM-DD"))}];
+        let days: Day[] =[];
+        for (let w = 0; w < date.weekday(); w++) {
+          days.push(<Day>{
+            num: 0,
+            date: null,
+            holidays: null
+          });
+        }
+
+        days.push(<Day>{num: startDay, date: date, holidays: this.fileService.getHoliday(date.format("YYYY-MM-DD"))});
+        if((startDay === date.daysInMonth() && date.weekday() < 6) || (startDay === (endDay -1) && startMonth == endMonth && startYear == endYear && date.weekday() < 6)) {
+          for(let q = date.weekday(); q < 6; q++) {
+            days.push(<Day>{
+              num: 0,
+              date: null,
+              holidays: null
+            });
+          }
+        }
+
         let months: Month[] = [<Month>{days: days, name: this.numToMonth(startMonth)}];
         years.push(<Year>{months: months, num: startYear });
       }
