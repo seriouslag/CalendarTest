@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Holiday} from "../interface/holiday";
-import {CountryCode} from "../interface/countryCode";
+import {HttpClient} from '@angular/common/http';
+import {Holiday} from '../interface/holiday';
+import {CountryCode} from '../interface/countryCode';
 
 @Injectable()
 export class FileService {
@@ -10,10 +10,12 @@ export class FileService {
   countryCodeData: CountryCode[];
 
   constructor(private http: HttpClient) {
+
     this.http.get<Holiday[]>('../assets/holidays.json')
       .subscribe(holidays => {
         this.holidayData = holidays;
       });
+
     this.http.get<CountryCode[]>('../assets/countrycodes.json')
       .subscribe(countryCode => {
         this.countryCodeData = countryCode;
@@ -22,10 +24,10 @@ export class FileService {
 
 
   getHoliday(date: string): Holiday[] {
-    return this.holidayData.filter(holiday => holiday.date === date);
+    return this.holidayData.filter(holiday => holiday.date.toLowerCase() === date.toLocaleLowerCase());
   }
 
   getCountryCode(code: string): CountryCode[] {
-    return this.countryCodeData.filter(countryCodeData => countryCodeData.Code.indexOf(code) > -1)
+    return this.countryCodeData.filter(countryCodeData => countryCodeData.Code.toLowerCase().indexOf(code.toLowerCase()) > -1);
   }
 }
