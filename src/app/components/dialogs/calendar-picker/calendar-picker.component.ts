@@ -16,7 +16,7 @@ export class CalendarPickerComponent implements OnInit, OnChanges {
 
   calForm = new FormGroup({
     startDate: new FormControl((this.calData ? this.calData.startDate : null), [Validators.required]),
-    numberOfDays: new FormControl((this.calData ? this.calData.numberOfDays : null), [
+    numberOfDays: new FormControl((this.calData ? this.calData.numberOfDays : null), [Validators.required,
       Validators.compose([Validators.required, CalendarPickerComponent.nonZero])
     ]),
     countryCode: new FormControl((this.calData ? this.calData.countryCode : null), []),

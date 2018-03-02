@@ -13,6 +13,7 @@
     <mat-form-field>
       <input matInput placeholder="Number of days" type="number" formControlName="numberOfDays">
       <mat-hint *ngIf="calForm.controls['numberOfDays'].hasError('nonZero')">Can only enter positive numbers</mat-hint>
+      <mat-hint *ngIf="calForm.controls['numberOfDays'].hasError('required') && (calForm.controls['numberOfDays'].touched || calForm.controls['numberOfDays'].dirty)">A number of days is required</mat-hint>
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Country Code" (input)="getCountryCodes($event)" type="text" formControlName="countryCode" [matAutocomplete]="countryCodesAuto" maxlength="2">
